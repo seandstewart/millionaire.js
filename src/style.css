@@ -209,6 +209,105 @@ html, body {
   border-color: var(--accent-gold);
 }
 
+/* Mobile Ladder Tracker */
+#mobile-ladder-tracker {
+  display: none;
+}
+
+.mobile-ladder-tracker {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 12px;
+  padding: 0 8px;
+}
+
+.ladder-track {
+  position: relative;
+  width: 100%;
+  height: 24px;
+  background: var(--bg-panel);
+  border: 1px solid var(--accent-blue);
+  border-radius: var(--radius);
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+}
+
+.ladder-milestones {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  padding: 0 4px;
+  pointer-events: none;
+}
+
+.milestone {
+  height: 12px;
+  width: 1px;
+  background: var(--text-secondary);
+  opacity: 0.5;
+}
+
+.milestone.safe-haven {
+  height: 18px;
+  width: 2px;
+  background: var(--accent-gold);
+  opacity: 0.8;
+  box-shadow: 0 0 4px var(--accent-gold);
+}
+
+.milestone.current {
+  height: 100%;
+  width: 3px;
+  background: var(--accent-gold);
+  box-shadow: 0 0 8px var(--accent-gold);
+  z-index: 2;
+}
+
+.ladder-current-pointer {
+  position: absolute;
+  top: -6px;
+  width: 0;
+  height: 0;
+  border-left: 6px solid transparent;
+  border-right: 6px solid transparent;
+  border-top: 8px solid var(--accent-gold);
+  box-shadow: 0 2px 4px var(--bg-deep);
+  z-index: 3;
+  left: 0%;
+  transition: left 0.4s ease;
+}
+
+.ladder-values {
+  display: flex;
+  gap: 20px;
+  justify-content: space-around;
+}
+
+.ladder-value-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+}
+
+.ladder-value-label {
+  font-family: var(--font-title);
+  font-size: 9px;
+  color: var(--text-secondary);
+  letter-spacing: 1px;
+}
+
+.ladder-value-amount {
+  font-family: var(--font-body);
+  font-size: 16px;
+  font-weight: bold;
+  color: var(--accent-gold);
+  text-shadow: 0 0 6px var(--accent-gold);
+}
+
 /* Game Layout */
 .game-layout {
   display: grid;
@@ -660,14 +759,21 @@ main {
 
 /* Responsive */
 @media (max-width: 800px) {
+  #mobile-ladder-tracker {
+    display: flex !important;
+  }
+
+  #mobile-ladder-tracker.hidden {
+    display: none !important;
+  }
+
   .game-layout {
     grid-template-columns: 1fr;
     grid-template-rows: auto 1fr;
   }
 
   aside#ladder {
-    max-height: 160px;
-    order: 2;
+    display: none;
   }
 
   #answers-grid {

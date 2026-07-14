@@ -5,7 +5,7 @@ import { loadQuestions } from './questions.js';
 import { initAudio, setAudioMuted, playSelectSound, playLockSound, playCorrectSound, playWrongSound, playWinSound, playStartGameSound, playTitleScreenLoop, playGameOverLoop, playWinnerLoop, stopLoopingSound, getLoopingPattern } from './audio.js';
 
 let audioInitialized = false;
-let audioMuted = false;
+let audioMuted = localStorage.getItem('moy-audio-muted') === 'true';
 let currentState = null;
 
 const els = {
@@ -39,6 +39,11 @@ const els = {
   walkawayConfirmBtn: document.getElementById('btn-walkaway-confirm'),
   cancelWalkawayBtn: document.getElementById('btn-cancel-walkaway'),
   audioToggleBtn: document.getElementById('btn-audio-toggle'),
+  mobileLadderTracker: document.getElementById('mobile-ladder-tracker'),
+  ladderMilestones: document.querySelector('.ladder-milestones'),
+  ladderPointer: document.querySelector('.ladder-current-pointer'),
+  walkawaySafeValue: document.getElementById('walkaway-value'),
+  currentWinValue: document.getElementById('current-value'),
 };
 
 let engine = null;
@@ -53,9 +58,9 @@ function checkLoopingPattern() {
 
 function restartAmbientLoopForState(state) {
   if (audioMuted || !audioInitialized) return;
-  
+
   stopLoopingSound();
-  
+
   if (state === States.IDLE) {
     console.log('[main] Restarting title loop after unmute...');
     playTitleScreenLoop();
@@ -104,8 +109,54 @@ function renderLadder(snap) {
   });
 }
 
+function updateMobileLadderTracker(snap) {
+  const questionIndex = snap.questionIndex ?? 0;
+  const totalQuestions = 15;
+  const progress = ((questionIndex + 1) / totalQuestions) * 100;
+  
+  // Update money amounts
+  const currentLadderLevel = snap.ladder[questionIndex];
+  const previousLadderLevel = questionIndex > 0 ? snap.ladder[questionIndex - 1] : null;
+  
+  const walkawayAmount = previousLadderLevel ? previousLadderLevel.amount : 0;
+  const currentWinAmount = currentLadderLevel ? currentLadderLevel.amount : 0;
+  
+  els.walkawaySafeValue.textContent = `$${walkawayAmount.toLocaleString()}`;
+  els.currentWinValue.textContent = `$${currentWinAmount.toLocaleString()}`;
+  
+  // Render milestones (all 15 questions, with safe havens highlighted)
+  els.ladderMilestones.innerHTML = '';
+  const spacing = 100 / (totalQuestions - 1); // Distribute across track
+  
+  for (let i = 0; i < totalQuestions; i++) {
+    const milestone = document.createElement('div');
+    milestone.className = 'milestone';
+    milestone.style.left = (i * spacing) + '%';
+    milestone.style.transform = 'translateX(-50%)';
+    
+    if (snap.ladder[i]?.safeHaven) {
+      milestone.classList.add('safe-haven');
+    }
+    if (i === questionIndex) {
+      milestone.classList.add('current');
+    }
+    
+    els.ladderMilestones.appendChild(milestone);
+  }
+  
+  // Position pointer at current question
+  els.ladderPointer.style.left = (questionIndex * spacing) + '%';
+  
+  // Show on mobile (max-width: 800px)
+  const isMobile = window.innerWidth <= 800;
+  if (isMobile) {
+    els.mobileLadderTracker.classList.remove('hidden');
+  }
+}
+
 function renderGame(snap) {
   renderLadder(snap);
+  updateMobileLadderTracker(snap);
 
   els.questionText.textContent = snap.currentQuestion?.question ?? '';
 
@@ -329,26 +380,32 @@ function render(snap) {
   switch (snap.state) {
     case States.IDLE:
       showScreen('screen-idle');
+      els.mobileLadderTracker.classList.add('hidden');
       break;
     case States.NAME_ENTRY:
       showScreen('screen-name');
+      els.mobileLadderTracker.classList.add('hidden');
       break;
     case States.DISPLAY_QUESTION:
     case States.ANSWER_LOCKED:
       showScreen('screen-game');
+      updateMobileLadderTracker(snap);
       renderGame(snap);
       break;
     case States.LIFELINE_ACTIVE:
       showScreen('screen-game');
+      updateMobileLadderTracker(snap);
       renderGame(snap);
       renderLifeline(snap);
       break;
     case States.REVEAL:
       showScreen('screen-game');
+      updateMobileLadderTracker(snap);
       renderGame(snap);
       break;
     case States.SAFE_HAVEN:
       showScreen('screen-game');
+      updateMobileLadderTracker(snap);
       renderGame(snap);
       showSafeHaven(snap);
       break;
@@ -367,6 +424,7 @@ async function init() {
   const questions = await loadQuestions();
   engine = new GameEngine(questions, ladder);
   engine.subscribe(render);
+  updateAudioToggleButton();
   render(engine.getSnapshot());
 
   els.startBtn.onclick = async () => {
@@ -405,6 +463,7 @@ async function init() {
   els.audioToggleBtn.onclick = (e) => {
     e.stopPropagation();
     audioMuted = !audioMuted;
+    localStorage.setItem('moy-audio-muted', audioMuted.toString());
     setAudioMuted(audioMuted);
     updateAudioToggleButton();
     console.log('[main] Audio toggled:', audioMuted ? 'MUTED' : 'UNMUTED');
@@ -426,7 +485,28 @@ async function init() {
     engine.reset();
   };
 
-  // Init audio on first document interaction
+  // Auto-play title music if user has audio enabled
+  async function tryAutoPlayTitle() {
+    if (!audioInitialized && !audioMuted) {
+      console.log('[main] Attempting auto-play of title music...');
+      try {
+        await initAudio();
+        audioInitialized = true;
+        const snap = engine.getSnapshot();
+        if (snap.state === States.IDLE) {
+          console.log('[main] Auto-playing title loop...');
+          playTitleScreenLoop();
+        }
+      } catch (err) {
+        console.log('[main] Auto-play failed (expected), will wait for user interaction:', err.message);
+      }
+    }
+  }
+
+  // Try auto-play on page load
+  setTimeout(tryAutoPlayTitle, 100);
+
+  // Init audio on first document interaction as fallback
   let audioInitializedOnClick = false;
   document.addEventListener('click', async () => {
     if (!audioInitializedOnClick && !audioInitialized) {
