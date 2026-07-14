@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Who Wants to Be a Moy-onaire</title>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet" />
+  <script type="module" crossorigin src="./assets/index-BAKmfgST.js"></script>
+  <link rel="stylesheet" crossorigin href="./assets/index-Y5CmP9k7.css">
+</head>
+<body>
+  <div id="app">
+    <div class="starfield"></div>
+    <button id="btn-audio-toggle" class="audio-toggle-btn" title="Toggle sound">SFX</button>
+
+    <div id="screen-idle" class="screen">
+      <div class="title-block">
+        <h1 class="title-glow">WHO WANTS<br/>TO BE A<br/>MOY-ONAIRE?</h1>
+        <p class="subtitle">Press Start to begin</p>
+      </div>
+      <div class="lifeline-hint">
+        <div class="lifeline-icon">50:50</div>
+        <div class="lifeline-icon">AUD</div>
+        <div class="lifeline-icon">PHN</div>
+      </div>
+      <button id="btn-start" class="btn-primary btn-large">START</button>
+    </div>
+
+    <div id="screen-name" class="screen hidden">
+      <div class="panel">
+        <label for="name-input">Enter your name</label>
+        <input id="name-input" type="text" maxlength="20" placeholder="Player" />
+        <button id="btn-submit-name" class="btn-primary">SUBMIT</button>
+      </div>
+    </div>
+
+    <div id="screen-game" class="screen hidden">
+      <div class="game-layout">
+        <aside id="ladder">
+          <ul id="ladder-list"></ul>
+        </aside>
+        <main>
+          <div id="lifelines">
+            <button id="ll-50-50" class="lifeline-btn">50:50</button>
+            <button id="ll-audience" class="lifeline-btn">AUD</button>
+            <button id="ll-phone" class="lifeline-btn">PHN</button>
+          </div>
+          <div id="question-box">
+            <span id="question-text"></span>
+          </div>
+          <div id="answers-grid"></div>
+          <div id="game-controls">
+            <button id="btn-lockin" class="btn-primary">LOCK IN</button>
+            <button id="btn-walkaway" class="btn-secondary">WALK AWAY</button>
+          </div>
+        </main>
+      </div>
+
+      <div id="safe-haven-banner" class="overlay hidden">
+        <div class="safe-haven-text">SAFE HAVEN REACHED</div>
+        <div class="safe-haven-amount"></div>
+      </div>
+
+      <div id="lifeline-overlay" class="overlay hidden">
+        <div id="lifeline-content"></div>
+      </div>
+
+      <div id="walkaway-confirm" class="overlay hidden">
+        <div class="modal">
+          <div class="modal-title">Are you sure?</div>
+          <div class="modal-text">You will walk away with your current winnings and cannot continue.</div>
+          <div id="walkaway-amount" class="modal-amount"></div>
+          <div class="modal-buttons">
+            <button id="btn-walkaway-confirm" class="btn-primary">YES, WALK AWAY</button>
+            <button id="btn-cancel-walkaway" class="btn-secondary">CANCEL</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="screen-gameover" class="screen hidden">
+      <h2>GAME OVER</h2>
+      <p id="gameover-reason"></p>
+      <p id="final-winnings"></p>
+      <button id="btn-playagain" class="btn-primary">PLAY AGAIN</button>
+    </div>
+
+    <div id="screen-win" class="screen hidden">
+      <h2>YOU WIN!</h2>
+      <p class="subtitle">You are a Millionaire!</p>
+      <button id="btn-playagain-win" class="btn-primary btn-large">PLAY AGAIN</button>
+    </div>
+  </div>
+
+</body>
+</html>

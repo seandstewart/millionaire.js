@@ -1,0 +1,184 @@
+{
+  "questions": [
+    {
+      "slug": "red-planet",
+      "difficulty": 1,
+      "question": "Which planet is known as the Red Planet?",
+      "options": [
+        { "slug": "venus", "text": "Venus" },
+        { "slug": "mars", "text": "Mars" },
+        { "slug": "jupiter", "text": "Jupiter" },
+        { "slug": "saturn", "text": "Saturn" }
+      ],
+      "correctOptionSlug": "mars"
+    },
+    {
+      "slug": "http-meaning",
+      "difficulty": 2,
+      "question": "What does 'HTTP' stand for?",
+      "options": [
+        { "slug": "hypertext-transfer-protocol", "text": "HyperText Transfer Protocol" },
+        { "slug": "high-tech-transfer-process", "text": "High Tech Transfer Process" },
+        { "slug": "home-tool-transfer-protocol", "text": "Home Tool Transfer Protocol" },
+        { "slug": "hypertext-transmission-program", "text": "HyperText Transmission Program" }
+      ],
+      "correctOptionSlug": "hypertext-transfer-protocol"
+    },
+    {
+      "slug": "au-element",
+      "difficulty": 3,
+      "question": "Which element has the chemical symbol 'Au'?",
+      "options": [
+        { "slug": "silver", "text": "Silver" },
+        { "slug": "aluminum", "text": "Aluminum" },
+        { "slug": "gold", "text": "Gold" },
+        { "slug": "argon", "text": "Argon" }
+      ],
+      "correctOptionSlug": "gold"
+    },
+    {
+      "slug": "two-power-ten",
+      "difficulty": 4,
+      "question": "In computer science, what is 2^10?",
+      "options": [
+        { "slug": "256", "text": "256" },
+        { "slug": "512", "text": "512" },
+        { "slug": "1024", "text": "1024" },
+        { "slug": "2048", "text": "2048" }
+      ],
+      "correctOptionSlug": "1024"
+    },
+    {
+      "slug": "eich-1995",
+      "difficulty": 5,
+      "question": "Which programming language was created by Brendan Eich in 1995?",
+      "options": [
+        { "slug": "python", "text": "Python" },
+        { "slug": "java", "text": "Java" },
+        { "slug": "javascript", "text": "JavaScript" },
+        { "slug": "cpp", "text": "C++" }
+      ],
+      "correctOptionSlug": "javascript"
+    },
+    {
+      "slug": "binary-search-complexity",
+      "difficulty": 6,
+      "question": "What is the time complexity of binary search in the worst case?",
+      "options": [
+        { "slug": "on", "text": "O(n)" },
+        { "slug": "ologn", "text": "O(log n)" },
+        { "slug": "onlogn", "text": "O(n log n)" },
+        { "slug": "onsquared", "text": "O(n^2)" }
+      ],
+      "correctOptionSlug": "ologn"
+    },
+    {
+      "slug": "dns-port",
+      "difficulty": 7,
+      "question": "Which port does DNS primarily use?",
+      "options": [
+        { "slug": "22", "text": "22" },
+        { "slug": "53", "text": "53" },
+        { "slug": "80", "text": "80" },
+        { "slug": "443", "text": "443" }
+      ],
+      "correctOptionSlug": "53"
+    },
+    {
+      "slug": "pythagorean",
+      "difficulty": 8,
+      "question": "In a right triangle, what is a^2 + b^2 equal to?",
+      "options": [
+        { "slug": "a-plus-b", "text": "a + b" },
+        { "slug": "c-squared", "text": "c^2" },
+        { "slug": "ab", "text": "ab" },
+        { "slug": "2c", "text": "2c" }
+      ],
+      "correctOptionSlug": "c-squared"
+    },
+    {
+      "slug": "capital-italy",
+      "difficulty": 9,
+      "question": "What is the capital city of Italy?",
+      "options": [
+        { "slug": "milan", "text": "Milan" },
+        { "slug": "venice", "text": "Venice" },
+        { "slug": "rome", "text": "Rome" },
+        { "slug": "naples", "text": "Naples" }
+      ],
+      "correctOptionSlug": "rome"
+    },
+    {
+      "slug": "speed-light",
+      "difficulty": 10,
+      "question": "What is the approximate speed of light in a vacuum (km/s)?",
+      "options": [
+        { "slug": "150000", "text": "150,000" },
+        { "slug": "300000", "text": "300,000" },
+        { "slug": "400000", "text": "400,000" },
+        { "slug": "1000000", "text": "1,000,000" }
+      ],
+      "correctOptionSlug": "300000"
+    },
+    {
+      "slug": "nobel-physics",
+      "difficulty": 11,
+      "question": "Who developed the theory of general relativity?",
+      "options": [
+        { "slug": "newton", "text": "Isaac Newton" },
+        { "slug": "einstein", "text": "Albert Einstein" },
+        { "slug": "bohr", "text": "Niels Bohr" },
+        { "slug": "hawking", "text": "Stephen Hawking" }
+      ],
+      "correctOptionSlug": "einstein"
+    },
+    {
+      "slug": "shakespeare-romeo",
+      "difficulty": 12,
+      "question": "Which Shakespeare play features the line 'To be, or not to be'?",
+      "options": [
+        { "slug": "macbeth", "text": "Macbeth" },
+        { "slug": "hamlet", "text": "Hamlet" },
+        { "slug": "othello", "text": "Othello" },
+        { "slug": "king-lear", "text": "King Lear" }
+      ],
+      "correctOptionSlug": "hamlet"
+    },
+    {
+      "slug": "largest-ocean",
+      "difficulty": 13,
+      "question": "What is the largest ocean on Earth?",
+      "options": [
+        { "slug": "atlantic", "text": "Atlantic Ocean" },
+        { "slug": "indian", "text": "Indian Ocean" },
+        { "slug": "arctic", "text": "Arctic Ocean" },
+        { "slug": "pacific", "text": "Pacific Ocean" }
+      ],
+      "correctOptionSlug": "pacific"
+    },
+    {
+      "slug": "first-programmer",
+      "difficulty": 14,
+      "question": "Who is widely considered the first computer programmer?",
+      "options": [
+        { "slug": "turing", "text": "Alan Turing" },
+        { "slug": "lovelace", "text": "Ada Lovelace" },
+        { "slug": "hopper", "text": "Grace Hopper" },
+        { "slug": "von-neumann", "text": "John von Neumann" }
+      ],
+      "correctOptionSlug": "lovelace"
+    },
+    {
+      "slug": "smallest-country",
+      "difficulty": 15,
+      "question": "What is the smallest country in the world by land area?",
+      "options": [
+        { "slug": "monaco", "text": "Monaco" },
+        { "slug": "vatican", "text": "Vatican City" },
+        { "slug": "nauru", "text": "Nauru" },
+        { "slug": "tuvalu", "text": "Tuvalu" }
+      ],
+      "correctOptionSlug": "vatican"
+    }
+  ]
+}

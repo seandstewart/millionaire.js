@@ -1,0 +1,17 @@
+export const ladder = [
+  { level: 1, amount: 100, safeHaven: false },
+  { level: 2, amount: 200, safeHaven: false },
+  { level: 3, amount: 300, safeHaven: false },
+  { level: 4, amount: 500, safeHaven: false },
+  { level: 5, amount: 1000, safeHaven: true },
+  { level: 6, amount: 2000, safeHaven: false },
+  { level: 7, amount: 4000, safeHaven: false },
+  { level: 8, amount: 8000, safeHaven: false },
+  { level: 9, amount: 16000, safeHaven: false },
+  { level: 10, amount: 32000, safeHaven: true },
+  { level: 11, amount: 64000, safeHaven: false },
+  { level: 12, amount: 125000, safeHaven: false },
+  { level: 13, amount: 250000, safeHaven: false },
+  { level: 14, amount: 500000, safeHaven: false },
+  { level: 15, amount: 1000000, safeHaven: true },
+];
