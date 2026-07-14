@@ -1,3 +1,4 @@
+import './style.css';
 import { GameEngine, States } from './engine.js';
 import { ladder } from './ladder.js';
 import { loadQuestions } from './questions.js';
@@ -135,7 +136,8 @@ function renderGame(snap) {
 
     btn.textContent = `${String.fromCharCode(65 + i)}: ${opt.text}`;
     btn.onclick = () => {
-      if (opt.active && snap.state === States.DISPLAY_QUESTION) {
+      const currentSnap = engine.getSnapshot();
+      if (opt.active && currentSnap.state === States.DISPLAY_QUESTION) {
         console.log('[main] Answer selected:', opt.slug);
         playSelectSound();
         engine.selectOption(opt.slug);
