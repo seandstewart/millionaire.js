@@ -3,6 +3,7 @@ import { GameEngine, States } from './engine.js';
 import { ladder } from './ladder.js';
 import { loadQuestions } from './questions.js';
 import { initAudio, setAudioMuted, playSelectSound, playLockSound, playCorrectSound, playWrongSound, playWinSound, playStartGameSound, playTitleScreenLoop, playGameOverLoop, playWinnerLoop, stopLoopingSound, getLoopingPattern } from './audio.js';
+import { generateShareMessage } from './shareMessage.js';
 
 let audioInitialized = false;
 let audioMuted = localStorage.getItem('moy-audio-muted') === 'true';
@@ -31,6 +32,8 @@ const els = {
   walkAwayBtn: document.getElementById('btn-walkaway'),
   gameoverReason: document.getElementById('gameover-reason'),
   finalWinnings: document.getElementById('final-winnings'),
+  shareGameoverBtn: document.getElementById('btn-share-gameover'),
+  shareWinBtn: document.getElementById('btn-share-win'),
   playAgainBtn: document.getElementById('btn-playagain'),
   playAgainWinBtn: document.getElementById('btn-playagain-win'),
   safeHavenBanner: document.getElementById('safe-haven-banner'),
@@ -50,6 +53,7 @@ let engine = null;
 let revealTimeout = null;
 let lifelineTimeout = null;
 let lastState = null;
+let currentQuestions = null;
 
 function checkLoopingPattern() {
   const loopingPattern = getLoopingPattern();
@@ -113,40 +117,40 @@ function updateMobileLadderTracker(snap) {
   const questionIndex = snap.questionIndex ?? 0;
   const totalQuestions = 15;
   const progress = ((questionIndex + 1) / totalQuestions) * 100;
-  
+
   // Update money amounts
   const currentLadderLevel = snap.ladder[questionIndex];
   const previousLadderLevel = questionIndex > 0 ? snap.ladder[questionIndex - 1] : null;
-  
+
   const walkawayAmount = previousLadderLevel ? previousLadderLevel.amount : 0;
   const currentWinAmount = currentLadderLevel ? currentLadderLevel.amount : 0;
-  
+
   els.walkawaySafeValue.textContent = `$${walkawayAmount.toLocaleString()}`;
   els.currentWinValue.textContent = `$${currentWinAmount.toLocaleString()}`;
-  
+
   // Render milestones (all 15 questions, with safe havens highlighted)
   els.ladderMilestones.innerHTML = '';
   const spacing = 100 / (totalQuestions - 1); // Distribute across track
-  
+
   for (let i = 0; i < totalQuestions; i++) {
     const milestone = document.createElement('div');
     milestone.className = 'milestone';
     milestone.style.left = (i * spacing) + '%';
     milestone.style.transform = 'translateX(-50%)';
-    
+
     if (snap.ladder[i]?.safeHaven) {
       milestone.classList.add('safe-haven');
     }
     if (i === questionIndex) {
       milestone.classList.add('current');
     }
-    
+
     els.ladderMilestones.appendChild(milestone);
   }
-  
+
   // Position pointer at current question
   els.ladderPointer.style.left = (questionIndex * spacing) + '%';
-  
+
   // Show on mobile (max-width: 800px)
   const isMobile = window.innerWidth <= 800;
   if (isMobile) {
@@ -422,6 +426,7 @@ function render(snap) {
 
 async function init() {
   const questions = await loadQuestions();
+  currentQuestions = questions;
   engine = new GameEngine(questions, ladder);
   engine.subscribe(render);
   updateAudioToggleButton();
@@ -474,6 +479,31 @@ async function init() {
       restartAmbientLoopForState(currentState);
     }
   };
+  const shareHandler = (e) => {
+    console.log('[main] Share clicked');
+    const btn = e.target;
+    const snap = engine.getSnapshot();
+    console.log('[main] Snapshot state:', snap.state);
+    const msg = generateShareMessage(snap, currentQuestions);
+    console.log('[main] Share message:', msg);
+    navigator.clipboard.writeText(msg).then(() => {
+      const original = btn.textContent;
+      btn.textContent = 'COPIED!';
+      setTimeout(() => { btn.textContent = original; }, 2000);
+    }).catch(err => {
+      console.error('[main] Share failed:', err);
+    });
+  };
+  console.log('[main] Share button gameover:', els.shareGameoverBtn);
+  console.log('[main] Share button win:', els.shareWinBtn);
+  if (els.shareGameoverBtn) {
+    els.shareGameoverBtn.onclick = shareHandler;
+    console.log('[main] Wired share gameover button');
+  }
+  if (els.shareWinBtn) {
+    els.shareWinBtn.onclick = shareHandler;
+    console.log('[main] Wired share win button');
+  }
   els.playAgainBtn.onclick = () => {
     audioInitialized = true;
     stopLoopingSound();

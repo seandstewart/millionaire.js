@@ -183,7 +183,7 @@ export async function playTitleScreenLoop() {
       oscillator: { type: 'sine' },
       envelope: { attack: 0.1, decay: 0.3, sustain: 0.1, release: 0.2 },
     }).toDestination();
-    
+
     // Gentle ambient pattern
     loopingPattern = new Tone.Loop((time) => {
       loopingSynth.triggerAttackRelease('C3', '0.4', time);
@@ -207,7 +207,7 @@ export async function playGameOverLoop() {
       oscillator: { type: 'sine' },
       envelope: { attack: 0.2, decay: 0.4, sustain: 0.2, release: 0.3 },
     }).toDestination();
-    
+
     // Mournful looping progression: E3 → D3 → E3 → B2 (5.2s loop)
     loopingPattern = new Tone.Loop((time) => {
       loopingSynth.triggerAttackRelease('E3', '1', time);
@@ -233,7 +233,7 @@ export async function playWinnerLoop() {
       oscillator: { type: 'triangle' },
       envelope: { attack: 0.08, decay: 0.2, sustain: 0.2, release: 0.15 },
     }).toDestination();
-    
+
     // Triumphant ascending pattern
     loopingPattern = new Tone.Loop((time) => {
       loopingSynth.triggerAttackRelease('C4', '0.35', time);
