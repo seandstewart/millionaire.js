@@ -1,5 +1,7 @@
 # Who Wants to Be a Moy-onaire — Design Plan
 
+**Architecture Decisions:** [ADR-007: Plain CSS3 with Custom Properties](../../../adrs/007-plain-css3.md) | [ADR-008: CSS Transitions and Keyframes](../../../adrs/008-css-animations.md) | [ADR-010: Inline SVG and CSS-Generated Graphics](../../../adrs/010-inline-svg-and-css-graphics.md) | [ADR-015: Custom Title and Assets](../../../adrs/015-custom-title-assets.md) | [ADR-016: Mobile Performance Budget](../../../adrs/016-mobile-performance-budget.md)
+
 ## 1. Color System
 
 | Token | Hex | Usage |
@@ -87,6 +89,8 @@ Google Fonts import:
 
 ## 4. CSS Design Tokens
 
+Per [ADR-007](../../../adrs/007-plain-css3.md), use CSS custom properties for all theme values:
+
 ```css
 :root {
   --bg-deep: #0a0014;
@@ -106,6 +110,8 @@ Google Fonts import:
 ```
 
 ## 5. JSON Schemas
+
+Per [ADR-004: Static JSON Question Bank](../../../adrs/004-static-json-question-bank.md) and [ADR-006: Slug-Based Data Model](../../../adrs/006-slug-based-data-model.md):
 
 ### Question Bank Schema
 
@@ -261,6 +267,8 @@ Google Fonts import:
 - `correctOptionSlug` must reference an existing option slug in the same question object
 
 ## 8. Asset Inventory
+
+Per [ADR-010: Inline SVG and CSS-Generated Graphics](../../../adrs/010-inline-svg-and-css-graphics.md) and [ADR-015: Custom Title and Assets](../../../adrs/015-custom-title-assets.md):
 
 | Asset | Source | Status |
 | --- | --- | --- |
