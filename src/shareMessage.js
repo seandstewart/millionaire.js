@@ -61,10 +61,8 @@ export function generateShareMessage(snapshot, questions) {
   const prize = snapshot.currentWinnings;
   const emoji = won ? '🏆' : '💰';
 
-  // Line 1: Title
-  const title = `Moy-onaire #40: ${
-    won ? 'Won' : 'Earned'
-  } ${emoji}$${prize ? formatAmount(prize) : '0'}`;
+  // Line 1: Title with player name
+  const title = `${playerName} on Moy-onaire #${getGameNumber()}: $${prize ? formatAmount(prize) : '0'} ${emoji}`;
 
   // Line 2: Emoji grid
   const grid = generateEmojiGrid(questions, snapshot);
@@ -72,6 +70,10 @@ export function generateShareMessage(snapshot, questions) {
   // Lifelines already included in return statement
 
   return `${title}\n${grid}\nLifelines: ${getLifelineEmojis(snapshot.lifelines)}`;
+}
+
+export function getGameNumber() {
+  return 40;
 }
 
 export function copyShareMessage(snapshot, questions) {
