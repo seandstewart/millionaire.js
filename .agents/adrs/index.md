@@ -22,3 +22,4 @@ Index of all Architecture Decision Records for the Moy-onaire project.
 | [014](./014-lazy-audio-context.md) | Lazy Audio Context Initialization | Accepted |
 | [015](./015-custom-title-assets.md) | Custom Title and Assets for Copyright Mitigation | Accepted |
 | [016](./016-mobile-performance-budget.md) | Mobile Performance Budget | Accepted |
+| [017](./017-persistent-scores-leaderboard.md) | Persistent Scores & Local Leaderboard | Proposed |

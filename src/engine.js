@@ -10,6 +10,16 @@ export const States = Object.freeze({
   WIN: 'win',
 });
 
+// Fisher-Yates shuffle algorithm
+function shuffleArray(array) {
+  const copy = [...array];
+  for (let i = copy.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [copy[i], copy[j]] = [copy[j], copy[i]];
+  }
+  return copy;
+}
+
 export class GameEngine {
   constructor(questionBank, ladder) {
     this._bank = questionBank;
@@ -49,7 +59,10 @@ export class GameEngine {
         throw new Error(`Missing question for difficulty ${d}`);
       }
       const pick = pool[Math.floor(Math.random() * pool.length)];
-      selected.push(structuredClone(pick));
+      const question = structuredClone(pick);
+      // Shuffle options once on load, not on each render
+      question.options = shuffleArray(question.options);
+      selected.push(question);
     }
     return selected;
   }

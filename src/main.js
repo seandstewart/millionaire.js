@@ -4,6 +4,7 @@ import { ladder } from './ladder.js';
 import { loadQuestions } from './questions.js';
 import { initAudio, setAudioMuted, playSelectSound, playLockSound, playCorrectSound, playWrongSound, playWinSound, playStartGameSound, playTitleScreenLoop, playGameOverLoop, playWinnerLoop, stopLoopingSound, getLoopingPattern } from './audio.js';
 import { generateShareMessage } from './shareMessage.js';
+import { saveScore, getLeaderboard, clearLeaderboard } from './leaderboard.js';
 
 let audioInitialized = false;
 let audioMuted = localStorage.getItem('moy-audio-muted') === 'true';
@@ -16,7 +17,10 @@ const els = {
     game: document.getElementById('screen-game'),
     gameover: document.getElementById('screen-gameover'),
     win: document.getElementById('screen-win'),
+    leaderboard: document.getElementById('screen-leaderboard'),
   },
+  viewLeaderboardGameoverBtn: document.getElementById('btn-view-leaderboard-gameover'),
+  viewLeaderboardWinBtn: document.getElementById('btn-view-leaderboard-win'),
   startBtn: document.getElementById('btn-start'),
   submitNameBtn: document.getElementById('btn-submit-name'),
   nameInput: document.getElementById('name-input'),
@@ -47,6 +51,10 @@ const els = {
   ladderPointer: document.querySelector('.ladder-current-pointer'),
   walkawaySafeValue: document.getElementById('walkaway-value'),
   currentWinValue: document.getElementById('current-value'),
+  leaderboardList: document.getElementById('leaderboard-list'),
+  shareScoreBtn: document.getElementById('btn-share-score'),
+  newGameBtn: document.getElementById('btn-new-game'),
+  clearLeaderboardBtn: document.getElementById('btn-clear-leaderboard'),
 };
 
 let engine = null;
@@ -97,6 +105,24 @@ function showScreen(id) {
   Object.values(els.screens).forEach(s => s.classList.add('hidden'));
   const screen = document.getElementById(id);
   if (screen) screen.classList.remove('hidden');
+  if (id === 'screen-leaderboard') {
+    const entries = getLeaderboard();
+    els.leaderboardList.innerHTML = '';
+    if (entries.length === 0) {
+      const empty = document.createElement('div');
+      empty.className = 'leaderboard-empty';
+      empty.textContent = 'No scores yet. Play a game!';
+      els.leaderboardList.appendChild(empty);
+    } else {
+      entries.forEach((entry, idx) => {
+        const row = document.createElement('div');
+        row.className = 'leaderboard-entry';
+        const date = new Date(entry.timestamp).toLocaleDateString();
+        row.innerHTML = `<span class="leaderboard-rank">#${idx + 1}</span><span class="leaderboard-name">${escapeHtml(entry.playerName)}</span><span class="leaderboard-score">$${entry.score.toLocaleString()}</span><span class="leaderboard-date">Q${entry.questionsReached} • ${date}</span>`;
+        els.leaderboardList.appendChild(row);
+      });
+    }
+  }
 }
 
 function renderLadder(snap) {
@@ -218,6 +244,8 @@ function showWalkAwayConfirm(snap) {
   els.walkawayAmount.textContent = `Winnings: $${amount.toLocaleString()}`;
   els.walkawayConfirm.classList.remove('hidden');
 }
+
+
 
 function renderLifeline(snap) {
   clearTimeout(lifelineTimeout);
@@ -429,6 +457,24 @@ async function init() {
   currentQuestions = questions;
   engine = new GameEngine(questions, ladder);
   engine.subscribe(render);
+  
+  // Capture game-over scores for leaderboard
+  engine.subscribe((snap) => {
+    if (snap.state === States.GAME_OVER || snap.state === States.WIN) {
+      const lifelinesUsed = Object.values(snap.lifelines).filter(used => used).length;
+      const entry = {
+        playerName: snap.playerName,
+        score: snap.currentWinnings,
+        questionsReached: snap.questionIndex + 1,
+        endReason: snap.gameOverReason,
+        lifelinesUsed,
+        timestamp: new Date().toISOString(),
+      };
+      console.log('[main] Leaderboard entry captured:', entry);
+      saveScore(entry);
+    }
+  });
+  
   updateAudioToggleButton();
   render(engine.getSnapshot());
 
@@ -494,16 +540,7 @@ async function init() {
       console.error('[main] Share failed:', err);
     });
   };
-  console.log('[main] Share button gameover:', els.shareGameoverBtn);
-  console.log('[main] Share button win:', els.shareWinBtn);
-  if (els.shareGameoverBtn) {
-    els.shareGameoverBtn.onclick = shareHandler;
-    console.log('[main] Wired share gameover button');
-  }
-  if (els.shareWinBtn) {
-    els.shareWinBtn.onclick = shareHandler;
-    console.log('[main] Wired share win button');
-  }
+  console.log('[main] Share buttons wired');
   els.playAgainBtn.onclick = () => {
     audioInitialized = true;
     stopLoopingSound();
@@ -514,6 +551,34 @@ async function init() {
     stopLoopingSound();
     engine.reset();
   };
+  
+  if (els.shareScoreBtn) {
+    els.shareScoreBtn.onclick = shareHandler;
+  }
+  if (els.newGameBtn) {
+    els.newGameBtn.onclick = () => {
+      audioInitialized = true;
+      stopLoopingSound();
+      engine.reset();
+    };
+  }
+  if (els.clearLeaderboardBtn) {
+    els.clearLeaderboardBtn.onclick = () => {
+      if (confirm('Clear all leaderboard scores? This cannot be undone.')) {
+        if (clearLeaderboard()) {
+          renderLeaderboard();
+        } else {
+          console.error('[main] Failed to clear leaderboard');
+        }
+      }
+    };
+  }
+  if (els.viewLeaderboardGameoverBtn) {
+    els.viewLeaderboardGameoverBtn.onclick = () => showScreen('screen-leaderboard');
+  }
+  if (els.viewLeaderboardWinBtn) {
+    els.viewLeaderboardWinBtn.onclick = () => showScreen('screen-leaderboard');
+  }
 
   // Auto-play title music if user has audio enabled
   async function tryAutoPlayTitle() {
