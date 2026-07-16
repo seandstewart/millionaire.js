@@ -19,6 +19,7 @@ const els = {
     win: document.getElementById('screen-win'),
     leaderboard: document.getElementById('screen-leaderboard'),
   },
+  viewLeaderboardIdleBtn: document.getElementById('btn-view-leaderboard-idle'),
   viewLeaderboardGameoverBtn: document.getElementById('btn-view-leaderboard-gameover'),
   viewLeaderboardWinBtn: document.getElementById('btn-view-leaderboard-win'),
   startBtn: document.getElementById('btn-start'),
@@ -118,7 +119,7 @@ function showScreen(id) {
         const row = document.createElement('div');
         row.className = 'leaderboard-entry';
         const date = new Date(entry.timestamp).toLocaleDateString();
-        row.innerHTML = `<span class="leaderboard-rank">#${idx + 1}</span><span class="leaderboard-name">${escapeHtml(entry.playerName)}</span><span class="leaderboard-score">$${entry.score.toLocaleString()}</span><span class="leaderboard-date">Q${entry.questionsReached} • ${date}</span>`;
+        row.innerHTML = `<span class="leaderboard-rank">#${idx + 1}</span><span class="leaderboard-name">${escapeHtml(entry.playerName)}</span><span class="leaderboard-score">$${entry.score.toLocaleString()}</span><span class="leaderboard-date">Q${entry.questionsReached} • LL${entry.lifelinesUsed ?? 0} • ${date}</span>`;
         els.leaderboardList.appendChild(row);
       });
     }
@@ -572,6 +573,9 @@ async function init() {
         }
       }
     };
+  }
+  if (els.viewLeaderboardIdleBtn) {
+    els.viewLeaderboardIdleBtn.onclick = () => showScreen('screen-leaderboard');
   }
   if (els.viewLeaderboardGameoverBtn) {
     els.viewLeaderboardGameoverBtn.onclick = () => showScreen('screen-leaderboard');

@@ -799,11 +799,18 @@ main {
 
 /* Leaderboard Screen */
 #screen-leaderboard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
   position: relative;
   z-index: 1;
   padding: 32px 24px;
+  margin: 0 auto;
   max-width: 800px;
   width: 100%;
+  box-sizing: border-box;
 }
 
 #screen-leaderboard h2 {
@@ -819,6 +826,7 @@ main {
   position: relative;
   z-index: 1;
   width: 100%;
+  box-sizing: border-box;
   margin-bottom: 32px;
   max-height: 60vh;
   overflow-y: auto;
@@ -836,7 +844,7 @@ main {
   align-items: center;
   border-bottom: 1px solid var(--border-glow);
   font-family: var(--font-body);
-  font-size: 18px;
+  font-size: 20px;
   color: var(--text-primary);
 }
 
