@@ -7,7 +7,7 @@ function formatAmount(num) {
   return num.toLocaleString();
 }
 
-function generateEmojiGrid(questions, snapshot) {
+export function generateEmojiGrid(questions, snapshot) {
   const gridSize = 10;
   let grid = '';
 
@@ -36,7 +36,7 @@ function generateEmojiGrid(questions, snapshot) {
   return grid;
 }
 
-function getLifelineEmojis(lifelinesUsed) {
+export function getLifelineEmojis(lifelinesUsed) {
   const map = {
     '50-50': '✂️',
     'ask-audience': '🎤',

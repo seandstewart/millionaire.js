@@ -227,8 +227,8 @@ export class GameEngine {
   }
 
   _generateAudienceDistribution(question) {
-    const correct = question.correctOptionSlug ?? question.correctOptionId ?? question.correct;
-    const keys = question.options.map(o => o.slug ?? o.id ?? o.key);
+    const correct = question.correctOptionSlug;
+    const keys = question.options.map(o => o.slug);
     const weights = {};
     const totalWeight = 100;
     let correctWeight = 55 + Math.floor(Math.random() * 20);
@@ -245,7 +245,7 @@ export class GameEngine {
     }
     weights[correct] = correctWeight;
     // Return as array in the order of options for easier access
-    return question.options.map(o => weights[o.slug] ?? weights[o.id] ?? weights[o.key] ?? 0);
+    return question.options.map(o => weights[o.slug]);
   }
 
   _generatePhoneFriendResponse(question) {
@@ -283,7 +283,7 @@ export class GameEngine {
       state: this._session.state,
       playerName: this._session.playerName,
       questionIndex: this._session.questionIndex,
-      currentQuestion: q ? {
+      currentQuestion: {
         slug: q.slug,
         question: q.question,
         options: q.options.map(o => ({
@@ -291,8 +291,8 @@ export class GameEngine {
           active: this._session.activeOptionSlugs.includes(o.slug)
         })),
         difficulty: q.difficulty,
-      } : null,
-      correctOptionSlug: q?.correctOptionSlug ?? null,
+      },
+      correctOptionSlug: q.correctOptionSlug,
       selectedOptionSlug: this._session.selectedOptionSlug,
       lifelines: { ...this._session.lifelines },
       lifelineType: this._session.lifelineType,
