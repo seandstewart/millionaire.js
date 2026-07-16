@@ -4,7 +4,7 @@ Rules for creating and maintaining project folders. Follow current implementatio
 
 ## Structure
 
-Each project exists in a versioned folder: `projects/v1/`, `projects/v2/`, etc.
+Each project in versioned folder: `projects/v1/`, `projects/v2/`, etc.
 
 Each project folder contains:
 
@@ -30,7 +30,7 @@ Header with project status and current milestone:
 > Valid statuses: Proposed → Accepted → In Progress → Completed
 ```
 
-Followed by an index table:
+Followed by index table:
 
 ```markdown
 ## Index
@@ -46,12 +46,12 @@ Followed by an index table:
 Complete project definition:
 
 1. **Executive Summary** — 1–2 paragraphs. What is this project? What problem does it solve?
-2. **Scope & Core Requirements** — Table of key features and their specs.
+2. **Scope & Core Requirements** — Table of key features and specs.
 3. **Recommended Technical Stack** — Table with Layer, Recommendation, Rationale. Link to relevant ADRs.
 4. **Architecture Overview** — High-level design, state flows, key patterns. Reference ADRs explicitly.
 5. **Key Milestones & Deliverables** — Table with Milestone, Duration, Deliverable.
 6. **Asset List** — Table of visual/audio/code assets needed (SVG, CSS, Tone.js, etc.).
-7. **Risk Factors & Mitigation** — Table identifying risks and mitigation strategies. Link to ADRs.
+7. **Risk Factors & Mitigation** — Table identifying risks and strategies. Link to ADRs.
 8. **Success Criteria** — Bulleted list of measurable outcomes (performance, completeness, compatibility).
 
 ### `design.md` — UI & Technical Specs
@@ -60,21 +60,21 @@ Design and implementation specifications:
 
 - **Color Palette** — Hex codes, variable names (CSS custom properties), usage.
 - **Typography** — Font families, sizes, weights, line-height defaults.
-- **Layout & Responsive Breakpoints** — Desktop, tablet, mobile breakpoints and grid specs.
-- **UI Components** — Buttons, cards, forms, etc. Include states (default, hover, active, disabled).
-- **Game States & Screens** — One section per major UI screen or game state. List content, interactions, transitions.
-- **JSON Schemas** — Documented structure for data (e.g., question bank format).
-- **Asset Inventory** — Catalog of all SVG, CSS graphics, icons, audio, etc. Include source/storage location.
+- **Layout & Responsive Breakpoints** — Desktop, tablet, mobile and grid specs.
+- **UI Components** — Buttons, cards, forms. Include states (default, hover, active, disabled).
+- **Game States & Screens** — One section per major UI screen or state. Content, interactions, transitions.
+- **JSON Schemas** — Documented data structure (e.g., question bank format).
+- **Asset Inventory** — Catalog of all SVG, CSS graphics, icons, audio. Include source/storage.
 
 ## Linking ADRs
 
-Proposal must link to **all relevant ADRs**. Use section header or inline within tables/text:
+Proposal must link to **all relevant ADRs**. Use section header or inline in tables/text:
 
 ```markdown
 **Key Architecture Decisions:** [ADR-001: SPA](../adrs/001-single-page-application.md) | [ADR-003: FSM](../adrs/003-finite-state-machine.md) | ...
 ```
 
-When describing a choice, include ADR reference:
+When describing choice, include ADR reference:
 
 ```markdown
 **Framework** | Vanilla JavaScript ([ADR-002](../adrs/002-vanilla-javascript.md)) | Avoids dependency debt
@@ -84,27 +84,27 @@ When describing a choice, include ADR reference:
 
 Milestones use uppercase shorthand: `M1`, `M2`, ..., `M6`.
 
-Each milestone should specify:
+Each milestone specifies:
 - **Duration**: Estimated days or weeks.
-- **Deliverable**: What is completed and demonstrated at the end.
+- **Deliverable**: What is completed and demonstrated.
 
-Total project timeline should be provided.
+Provide total project timeline.
 
 ## Status Progression
 
-Projects follow this progression:
+Projects follow progression:
 
 1. **Proposed** — Idea phase. Proposal drafted but not greenlit.
 2. **Accepted** — Design approved, ready to start.
 3. **In Progress** — Active development. Update `Current Milestone` field as work advances.
 4. **Completed** — All milestones delivered, shipped.
 
-When status changes, update the `index.md` header.
+When status changes, update `index.md` header.
 
 ## Naming & Location
 
-- Folder name: `projects/v[N]/` (where N is integer: 1, 2, 3, ...).
-- Use version numbers to track major iterations or resets.
+- Folder name: `projects/v[N]/` (N = integer: 1, 2, 3, ...).
+- Use version numbers to track major iterations.
 - Within version, docs evolve without renaming.
 
 ## Cross-References

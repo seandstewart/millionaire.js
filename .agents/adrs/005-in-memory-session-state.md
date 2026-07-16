@@ -2,10 +2,10 @@
 
 **Status:** Accepted
 
-**Context:** No requirement for cross-session persistence, leaderboards, or user accounts in MVP.
+**Context:** No cross-session persistence, leaderboards, or user accounts needed in MVP.
 
-**Decision:** Track game session (current winnings, lifeline usage flags, question index) in a plain JavaScript object held in memory.
+**Decision:** Track session (current winnings, lifeline usage flags, question index) in plain JavaScript object in memory.
 
 **Consequences:**
-- Positive: Simple; no storage APIs or backend sessions needed.
-- Negative: State lost on refresh or tab close; no replayability of past sessions.
+- Positive: Simple; no storage APIs or backend sessions.
+- Negative: State lost on refresh/close; no past session replay.

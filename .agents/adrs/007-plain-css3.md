@@ -2,7 +2,7 @@
 
 **Status:** Accepted
 
-**Context:** The UI is 2D, retro, and layout-simple. Heavy CSS frameworks (Bootstrap, Tailwind) are unnecessary overhead.
+**Context:** UI is 2D, retro, layout-simple. Heavy CSS frameworks (Bootstrap, Tailwind) are unnecessary overhead.
 
 **Decision:** Use CSS3 Grid/Flexbox with CSS custom properties (variables) for theming. No external CSS framework.
 

@@ -7,5 +7,5 @@
 **Decision:** Deploy to Netlify or Vercel.
 
 **Consequences:**
-- Positive: Free tier; automatic deploys from Git pushes; CDN distribution.
-- Negative: Vendor lock-in for deployment pipeline; serverless functions would be a separate decision if needed later.
+- Positive: Free tier; automatic deploys from Git; CDN distribution.
+- Negative: Vendor lock-in for deployment pipeline; serverless functions separate decision if needed later.

@@ -1,6 +1,6 @@
 # Rules for Architecture Decision Records
 
-Rules for creating and maintaining ADRs in this project. Follow current implementation pattern.
+Rules for creating and maintaining ADRs. Follow current implementation pattern.
 
 ## Format
 
@@ -31,13 +31,13 @@ Each ADR file follows this structure:
 | Section | Required | Notes |
 |---------|----------|-------|
 | **Status** | Yes | One of: Proposed, Accepted, Deprecated |
-| **Context** | Yes | Explain the problem/constraint driving the decision. 1–3 sentences. |
-| **Decision** | Yes | State what was chosen and why (briefly). 1–2 sentences. |
-| **Consequences** | Yes | Bulleted lists. At least one positive AND one negative consequence. |
+| **Context** | Yes | Explain problem/constraint. 1–3 sentences. |
+| **Decision** | Yes | State what was chosen and why. 1–2 sentences. |
+| **Consequences** | Yes | Bulleted lists. At least one positive AND one negative. |
 
 ## Scope
 
-ADRs document **architectural and technical choices** affecting the design, not sprint tasks or implementation details. Examples:
+ADRs document **architectural and technical choices** affecting design, not sprint tasks or implementation details.
 
 **Appropriate for ADR:**
 - Framework choice (Vanilla JS vs. React)
@@ -47,8 +47,8 @@ ADRs document **architectural and technical choices** affecting the design, not 
 
 **Not appropriate:**
 - "Fix bug in button handler" (implementation)
-- "Add help text to Q3" (content, not architecture)
-- "Refactor CSS into modules" (local refactor, no long-term impact)
+- "Add help text to Q3" (content)
+- "Refactor CSS into modules" (local refactor)
 
 ## Index Maintenance
 
@@ -60,20 +60,20 @@ The `index.md` file lists all ADRs in a table:
 | [001](./001-file.md) | Title | Accepted |
 ```
 
-When adding a new ADR:
+When adding ADR:
 1. Create `NNN-kebab-case-title.md`.
-2. Add a row to the index table.
-3. Use relative links to the .md file.
+2. Add row to index table.
+3. Use relative links to .md file.
 
 ## References
 
-ADRs are referenced from other documents (e.g., proposal.md) using relative links:
+ADRs referenced from other documents using relative links:
 
 ```markdown
 [ADR-001: Single Page Application](../adrs/001-single-page-application.md)
 ```
 
-When an ADR is deprecated or superseded, add a note and link to the replacement:
+When deprecated/superseded, add note and link:
 
 ```markdown
 **Status:** Deprecated

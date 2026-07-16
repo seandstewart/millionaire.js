@@ -2,7 +2,7 @@
 
 **Status:** Accepted
 
-**Context:** Project is a static site with modern ES6+ modules. Need fast dev server and efficient bundling/minification for production.
+**Context:** Static site with ES6+ modules. Need fast dev server and efficient bundling/minification for production.
 
 **Decision:** Use Vite for development and production builds.
 

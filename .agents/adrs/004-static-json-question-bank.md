@@ -2,10 +2,10 @@
 
 **Status:** Accepted
 
-**Context:** MVP has no user accounts, no dynamic content generation, and no licensing for a live API.
+**Context:** MVP has no accounts, no content generation, no API licensing.
 
-**Decision:** Store the question bank in a static JSON file loaded at runtime. No backend server for MVP.
+**Decision:** Store question bank in static JSON file loaded at runtime. No backend server for MVP.
 
 **Consequences:**
-- Positive: Zero backend cost/infrastructure; trivial to deploy; fast loading.
-- Negative: Content is hardcoded; requires redeploy to update questions. Licensed API or curated bank is a future replacement.
+- Positive: Zero backend cost/infrastructure; trivial deployment; fast loading.
+- Negative: Content hardcoded; redeploy required for updates. Licensed API/curated bank is future replacement.

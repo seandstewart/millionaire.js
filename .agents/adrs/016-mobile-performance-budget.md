@@ -2,10 +2,10 @@
 
 **Status:** Accepted
 
-**Context:** Success criteria mandate load time <1s on 3G and total bundle <200 KB (excluding question JSON).
+**Context:** Success criteria mandate load <1s on 3G and bundle <200 KB (excluding question JSON).
 
-**Decision:** Enforce a performance budget: keep DOM nodes low, avoid reflow-heavy animations, minimize dependencies, and audit bundle size.
+**Decision:** Enforce performance budget: keep DOM nodes low, avoid reflow-heavy animations, minimize dependencies, audit bundle size.
 
 **Consequences:**
 - Positive: Forces disciplined, lightweight architecture; better UX on low-end devices.
-- Negative: Excludes heavier libraries or rich media that would exceed the budget.
+- Negative: Excludes heavier libraries/rich media exceeding budget.

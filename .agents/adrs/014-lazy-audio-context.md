@@ -2,10 +2,10 @@
 
 **Status:** Accepted
 
-**Context:** Modern browsers block AudioContext autoplay until a user gesture is detected.
+**Context:** Modern browsers block AudioContext autoplay until user gesture detected.
 
-**Decision:** Initialize the audio context (and Tone.js) only after the first user click or tap.
+**Decision:** Initialize audio context (and Tone.js) only after first user click or tap.
 
 **Consequences:**
 - Positive: Complies with browser autoplay policies; avoids console errors.
-- Negative: No audio during the initial title screen until interaction occurs.
+- Negative: No audio during initial title screen until interaction.
