@@ -128,10 +128,14 @@ export class GameEngine {
   }
 
   selectOption(slug) {
-    if (this._session.state !== States.DISPLAY_QUESTION) return;
+    if (this._session.state !== States.DISPLAY_QUESTION && this._session.state !== States.ANSWER_LOCKED) return;
     if (!this._session.activeOptionSlugs.includes(slug)) return;
     this._session.selectedOptionSlug = slug;
-    this._setState(States.ANSWER_LOCKED);
+    if (this._session.state !== States.ANSWER_LOCKED) {
+      this._setState(States.ANSWER_LOCKED);
+    } else {
+      this._notify();
+    }
   }
 
   lockIn() {

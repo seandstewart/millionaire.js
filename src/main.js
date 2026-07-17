@@ -219,7 +219,7 @@ function renderGame(snap) {
     btn.textContent = `${String.fromCharCode(65 + i)}: ${opt.text}`;
     btn.onclick = () => {
       const currentSnap = engine.getSnapshot();
-      if (opt.active && currentSnap.state === States.DISPLAY_QUESTION) {
+      if (opt.active && (currentSnap.state === States.DISPLAY_QUESTION || currentSnap.state === States.ANSWER_LOCKED)) {
         console.log('[main] Answer selected:', opt.slug);
         playSelectSound();
         engine.selectOption(opt.slug);

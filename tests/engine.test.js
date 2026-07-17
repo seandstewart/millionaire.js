@@ -247,6 +247,20 @@ describe('GameEngine', () => {
       expect(snapshot.state).toBe(States.DISPLAY_QUESTION);
       expect(snapshot.selectedOptionSlug).toBeNull();
     });
+
+    it('allows re-selection while in ANSWER_LOCKED state', () => {
+      // First selection
+      engine.selectOption('a');
+      let snapshot = engine.getSnapshot();
+      expect(snapshot.selectedOptionSlug).toBe('a');
+      expect(snapshot.state).toBe(States.ANSWER_LOCKED);
+
+      // Change selection
+      engine.selectOption('b');
+      snapshot = engine.getSnapshot();
+      expect(snapshot.selectedOptionSlug).toBe('b');
+      expect(snapshot.state).toBe(States.ANSWER_LOCKED);
+    });
   });
 
   describe('lockIn()', () => {
