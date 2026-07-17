@@ -4,7 +4,7 @@
 
 **Context:** Game mechanics aren't copyrightable, but original show's trade dress (name, layout, sound effects) is protected.
 
-**Decision:** Rename to "Moy-onaire" and use custom UI assets/color palette. Don't replicate original show's trade dress.
+**Decision:** Rename to "Moy-llionaire" and use custom UI assets/color palette. Don't replicate original show's trade dress.
 
 **Consequences:**
 - Positive: Reduces legal risk; establishes distinct branding.

@@ -1,9 +1,9 @@
-**Project Proposal: "Who Wants to Be a Moy-onaire"**
+**Project Proposal: "Who Wants to Be a Moy-llionaire"
 
 **Key Architecture Decisions:** [ADR-001: SPA](../../../adrs/001-single-page-application.md) | [ADR-002: Vanilla JavaScript](../../../adrs/002-vanilla-javascript.md) | [ADR-003: FSM](../../../adrs/003-finite-state-machine.md) | [ADR-004: Static JSON Questions](../../../adrs/004-static-json-question-bank.md) | [ADR-005: In-Memory State](../../../adrs/005-in-memory-session-state.md) | [ADR-006: Slug-Based Model](../../../adrs/006-slug-based-data-model.md)
 
 **1. Executive Summary**
-A browser-based trivia game replicating the classic TV format under the working title *"Who Wants to Be a Moy-onaire."* The aesthetic is intentionally reduced: 2D, flat vector or pixel-art styling, high-contrast color blocks, and chiptune audio cues. No WebGL, 3D assets, or complex physics. The deliverable is a single-page application (SPA) playable on desktop and mobile browsers.
+A browser-based trivia game replicating the classic TV format under the working title *"Who Wants to Be a Moy-llionaire."* The aesthetic is intentionally reduced: 2D, flat vector or pixel-art styling, high-contrast color blocks, and chiptune audio cues. No WebGL, 3D assets, or complex physics. The deliverable is a single-page application (SPA) playable on desktop and mobile browsers.
 
 ---
 
@@ -69,7 +69,7 @@ States: IDLE -> DISPLAY_QUESTION -> LIFELINE -> LOCK_IN -> REVEAL -> UPDATE_LADD
 
 | Asset | Format | Notes |
 | --- | --- | --- |
-| Logo / Title | SVG | "Moy-onaire" wordmark. |
+| Logo / Title | SVG | "Moy-llionaire" wordmark. |
 | Money Tree | SVG/CSS | 15-tier vertical list. Highlight current tier with a retro glow. |
 | UI Buttons | CSS | Rounded rectangles with `:active` and `:hover` states. |
 | Lifeline Icons | SVG | 50:50, phone, audience silhouette. |

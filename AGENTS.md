@@ -15,7 +15,7 @@ All structural choices are documented in **[.agents/adrs/](./agents/adrs/)**. Be
 
 ## Project Context
 
-**Active Project**: [v1 — "Who Wants to Be a Moy-onaire"](./agents/projects/v1/)
+**Active Project**: [v1 — "Who Wants to Be a Moy-llionaire"](./agents/projects/v1/)
 
 - **Status**: In Progress (see current milestone in `index.md`)
 - **Tech Stack**: Vanilla JS, CSS3, Vite, Tone.js

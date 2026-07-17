@@ -1,4 +1,4 @@
-# Who Wants to Be a Moy-onaire
+# Who Wants to Be a Moy-llionaire
 
 Browser-based trivia game replicating the classic TV format. Playable on desktop and mobile, no backend required.
 

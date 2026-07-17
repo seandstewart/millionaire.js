@@ -1,4 +1,4 @@
-# Who Wants to Be a Moy-onaire — Design Plan
+# Who Wants to Be a Moy-llionaire — Design Plan
 
 **Architecture Decisions:** [ADR-007: Plain CSS3 with Custom Properties](../../../adrs/007-plain-css3.md) | [ADR-008: CSS Transitions and Keyframes](../../../adrs/008-css-animations.md) | [ADR-010: Inline SVG and CSS-Generated Graphics](../../../adrs/010-inline-svg-and-css-graphics.md) | [ADR-015: Custom Title and Assets](../../../adrs/015-custom-title-assets.md) | [ADR-016: Mobile Performance Budget](../../../adrs/016-mobile-performance-budget.md)
 
@@ -34,8 +34,8 @@ Google Fonts import:
 
 ### Screen A: Title / Intro
 - **Background:** `--bg-deep` with faint starfield CSS pattern (radial gradients)
-- **Center block:** Logo "MOY-ONAIRE" in `--accent-gold`, `Press Start 2P`, with slight text-shadow glow
-- **Subtitle:** "Who Wants to Be a Moy-onaire" in `--text-secondary`
+- **Center block:** Logo "MOY-LLIONAIRE" in `--accent-gold`, `Press Start 2P`, with slight text-shadow glow
+- **Subtitle:** "Who Wants to Be a Moy-llionaire" in `--text-secondary`
 - **CTA:** Single centered button "START GAME" in `--accent-blue`, 200px wide
 - **Footer:** Three lifeline icons greyed out at 40% opacity (hints at game mechanics)
 
@@ -83,7 +83,7 @@ Google Fonts import:
 
 ### Screen I: Game Over / Win
 - **Background:** `--bg-deep`
-- **Center text:** "GAME OVER" or "YOU ARE A MOY-ONAIRE" in `Press Start 2P`
+- **Center text:** "GAME OVER" or "YOU ARE A MOY-LLIONAIRE" in `Press Start 2P`
 - **Below:** Final winnings amount in large `--accent-gold`
 - **Buttons:** "PLAY AGAIN" (primary) / "MAIN MENU" (secondary)
 

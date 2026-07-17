@@ -1,4 +1,4 @@
-export const LEADERBOARD_KEY = 'moyanaire_leaderboard';
+export const LEADERBOARD_KEY = 'moyallionaire_leaderboard';
 export const MAX_ENTRIES = 100;
 
 /**

@@ -1,6 +1,6 @@
-# Architecture Decision Records — Who Wants to Be a Moy-onaire
+# Architecture Decision Records — Who Wants to Be a Moy-llionaire
 
-Index of all Architecture Decision Records for the Moy-onaire project.
+Index of all Architecture Decision Records for the Moy-llionaire project.
 
 ## ADRs
 

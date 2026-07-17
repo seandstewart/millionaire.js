@@ -1,4 +1,4 @@
-# Project v1: "Who Wants to Be a Moy-onaire"
+# Project v1: "Who Wants to Be a Moy-llionaire"
 
 **Status:** In Progress
 **Current Milestone**: M5 (Audio & Polish + Leaderboard)

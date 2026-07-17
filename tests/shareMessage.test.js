@@ -365,7 +365,7 @@ describe('shareMessage module', () => {
         lifelines: { '50-50': false, 'ask-audience': false, 'phone-friend': false },
       };
       const msg = generateShareMessage(snapshot, mockQuestions);
-      expect(msg).toContain('Player on Moy-onaire');
+      expect(msg).toContain('Player on Moy-llionaire');
     });
   });
 

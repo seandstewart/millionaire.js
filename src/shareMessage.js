@@ -62,7 +62,7 @@ export function generateShareMessage(snapshot, questions) {
   const emoji = won ? '🏆' : '💰';
 
   // Line 1: Title with player name
-  const title = `${playerName} on Moy-onaire #${getGameNumber()}: $${prize ? formatAmount(prize) : '0'} ${emoji}`;
+  const title = `${playerName} on Moy-llionaire #${getGameNumber()}: $${prize ? formatAmount(prize) : '0'} ${emoji}`;
 
   // Line 2: Emoji grid
   const grid = generateEmojiGrid(questions, snapshot);
