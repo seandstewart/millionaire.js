@@ -1,12 +1,12 @@
 :root {
   --bg-deep: #0a0014;
   --bg-panel: #1a0b2e;
-  --accent-gold: #ffcc00;
-  --accent-blue: #0044ff;
+  --accent-gold: #00d9d9;
+  --accent-blue: #9d4edd;
   --accent-danger: #cc0000;
-  --text-primary: #f0e6ff;
-  --text-secondary: #a080c0;
-  --border-glow: #ffcc0040;
+  --text-primary: #ffffff;
+  --text-secondary: #00d9d9;
+  --border-glow: #00d9d94d;
   --font-title: 'Press Start 2P', cursive;
   --font-body: 'VT323', monospace;
   --radius: 4px;
