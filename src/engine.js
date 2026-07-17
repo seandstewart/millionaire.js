@@ -72,25 +72,27 @@ export class GameEngine {
     this._notify();
   }
 
-  submitName(playerName) {
+  submitName(playerName, options = {}) {
     if (!playerName || typeof playerName !== 'string' || playerName.trim() === '') {
       throw new Error('Invalid player name');
     }
-    this.startGame(playerName.trim());
+    this.startGame(playerName.trim(), options);
   }
 
-  startGame(playerName) {
+  startGame(playerName, options = {}) {
     const questions = this._selectQuestions();
+    const startIndex = Math.max(0, Math.min(14, options.startQuestion || 0));
+    const initialLifelines = {
+      '50-50': !(options.lifelines?.includes('50-50') ?? false),
+      'ask-audience': !(options.lifelines?.includes('ask-audience') ?? false),
+      'phone-friend': !(options.lifelines?.includes('phone-friend') ?? false),
+    };
     this._session = {
       state: States.DISPLAY_QUESTION,
       playerName,
       questions,
-      questionIndex: 0,
-      lifelines: {
-        '50-50': false,
-        'ask-audience': false,
-        'phone-friend': false,
-      },
+      questionIndex: startIndex,
+      lifelines: initialLifelines,
       selectedOptionSlug: null,
       activeOptionSlugs: [],
       floorAmount: 0,

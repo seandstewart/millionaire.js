@@ -56,6 +56,16 @@ const els = {
   shareScoreBtn: document.getElementById('btn-share-score'),
   newGameBtn: document.getElementById('btn-new-game'),
   clearLeaderboardBtn: document.getElementById('btn-clear-leaderboard'),
+  customizeBtn: document.getElementById('btn-customize'),
+  customizeModal: document.getElementById('customize-modal'),
+  startQuestionSelect: document.getElementById('start-question'),
+  startQuestionBtn: document.getElementById('start-question-btn'),
+  startQuestionMenu: document.getElementById('start-question-menu'),
+  lifeline50Checkbox: document.getElementById('lifeline-50-50'),
+  lifelineAudienceCheckbox: document.getElementById('lifeline-audience'),
+  lifelinePhoneCheckbox: document.getElementById('lifeline-phone'),
+  customizeConfirmBtn: document.getElementById('btn-customize-confirm'),
+  customizeCancelBtn: document.getElementById('btn-customize-cancel'),
 };
 
 let engine = null;
@@ -487,7 +497,60 @@ async function init() {
     stopLoopingSound();
     engine.start();
   };
-  els.submitNameBtn.onclick = () => engine.submitName(els.nameInput.value);
+  els.submitNameBtn.onclick = () => {
+    const name = els.nameInput.value;
+    const customOptions = {
+      startQuestion: parseInt(els.startQuestionSelect.value, 10),
+      lifelines: Array.from(document.querySelectorAll('.customize-lifeline-check:checked')).map(cb => cb.value),
+    };
+    engine.submitName(name, customOptions);
+  };
+  els.customizeBtn.onclick = () => {
+    els.customizeModal.classList.remove('hidden');
+  };
+  els.customizeCancelBtn.onclick = () => {
+    els.customizeModal.classList.add('hidden');
+  };
+  els.customizeConfirmBtn.onclick = () => {
+    els.customizeModal.classList.add('hidden');
+  };
+  // Customize modal lifeline checkboxes
+  const lifelineCheckboxes = [
+    els.lifeline50Checkbox,
+    els.lifelineAudienceCheckbox,
+    els.lifelinePhoneCheckbox,
+  ];
+  lifelineCheckboxes.forEach(checkbox => {
+    checkbox.classList.add('customize-lifeline-check');
+  });
+
+  // Custom dropdown handler
+  els.startQuestionBtn.onclick = (e) => {
+    e.stopPropagation();
+    els.startQuestionMenu.classList.toggle('hidden');
+  };
+
+  const dropdownOptions = document.querySelectorAll('.dropdown-option');
+  dropdownOptions.forEach(option => {
+    option.onclick = (e) => {
+      e.stopPropagation();
+      const value = option.dataset.value;
+      const text = option.textContent;
+      els.startQuestionSelect.value = value;
+      els.startQuestionBtn.textContent = text;
+      dropdownOptions.forEach(opt => opt.classList.remove('selected'));
+      option.classList.add('selected');
+      els.startQuestionMenu.classList.add('hidden');
+    };
+  });
+
+  // Close dropdown when clicking outside
+  document.addEventListener('click', (e) => {
+    if (!els.startQuestionBtn.contains(e.target) && !els.startQuestionMenu.contains(e.target)) {
+      els.startQuestionMenu.classList.add('hidden');
+    }
+  });
+
   els.lifelineFifty.onclick = () => engine.useLifeline('50-50');
   els.lifelineAudience.onclick = () => engine.useLifeline('ask-audience');
   els.lifelinePhone.onclick = () => engine.useLifeline('phone-friend');

@@ -172,11 +172,59 @@ describe('GameEngine', () => {
       const snapshot = engine.getSnapshot();
       expect(snapshot.playerName).toBe('Bob');
     });
+
+    it('submitName with options.startQuestion selects starting difficulty', () => {
+      engine.submitName('Charlie', { startQuestion: 5 });
+      const snapshot = engine.getSnapshot();
+      expect(snapshot.state).toBe(States.DISPLAY_QUESTION);
+      expect(snapshot.playerName).toBe('Charlie');
+      expect(snapshot.currentQuestion.difficulty).toBe(6);
+    });
+
+    it('submitName with options.lifelines makes selected lifelines available', () => {
+      engine.submitName('Diana', { lifelines: ['50-50', 'ask-audience'] });
+      const snapshot = engine.getSnapshot();
+      expect(snapshot.state).toBe(States.DISPLAY_QUESTION);
+      expect(snapshot.playerName).toBe('Diana');
+      // Selected lifelines should be available (false = available)
+      expect(snapshot.lifelines['50-50']).toBe(false);
+      expect(snapshot.lifelines['ask-audience']).toBe(false);
+      // Unselected lifeline should be unavailable (true = unavailable)
+      expect(snapshot.lifelines['phone-friend']).toBe(true);
+    });
+
+    it('submitName with no lifelines in options leaves all unavailable', () => {
+      engine.submitName('Eve');
+      const snapshot = engine.getSnapshot();
+      expect(snapshot.state).toBe(States.DISPLAY_QUESTION);
+      // No lifelines specified, all should be unavailable (true)
+      expect(snapshot.lifelines['50-50']).toBe(true);
+      expect(snapshot.lifelines['ask-audience']).toBe(true);
+      expect(snapshot.lifelines['phone-friend']).toBe(true);
+    });
+
+    it('submitName with all lifelines selected makes all available', () => {
+      engine.submitName('Frank', { lifelines: ['50-50', 'ask-audience', 'phone-friend'] });
+      const snapshot = engine.getSnapshot();
+      expect(snapshot.lifelines['50-50']).toBe(false);
+      expect(snapshot.lifelines['ask-audience']).toBe(false);
+      expect(snapshot.lifelines['phone-friend']).toBe(false);
+    });
+
+    it('submitName with options combines startQuestion and lifelines', () => {
+      engine.submitName('Grace', { startQuestion: 10, lifelines: ['phone-friend'] });
+      const snapshot = engine.getSnapshot();
+      expect(snapshot.playerName).toBe('Grace');
+      expect(snapshot.currentQuestion.difficulty).toBe(11);
+      expect(snapshot.lifelines['50-50']).toBe(true);
+      expect(snapshot.lifelines['ask-audience']).toBe(true);
+      expect(snapshot.lifelines['phone-friend']).toBe(false);
+    });
   });
 
   describe('startGame()', () => {
     it('initializes lifelines object', () => {
-      engine.startGame('Player');
+      engine.startGame('Player', { lifelines: ['50-50', 'ask-audience', 'phone-friend'] });
       const snapshot = engine.getSnapshot();
       expect(snapshot.lifelines['50-50']).toBe(false);
       expect(snapshot.lifelines['ask-audience']).toBe(false);
@@ -210,6 +258,56 @@ describe('GameEngine', () => {
       const incompleteEngine = new GameEngine(incompleteBank, ladder);
       // Expect error when trying to start game
       expect(() => incompleteEngine.startGame('Test')).toThrow('Missing question for difficulty 3');
+    });
+
+    it('startGame() with NO options → all lifelines unavailable (true)', () => {
+      engine.startGame('Player');
+      const snapshot = engine.getSnapshot();
+      expect(snapshot.lifelines).toEqual({
+        '50-50': true,
+        'ask-audience': true,
+        'phone-friend': true,
+      });
+    });
+
+    it('startGame() with options.lifelines = [] → all lifelines unavailable (true)', () => {
+      engine.startGame('Player', { lifelines: [] });
+      const snapshot = engine.getSnapshot();
+      expect(snapshot.lifelines).toEqual({
+        '50-50': true,
+        'ask-audience': true,
+        'phone-friend': true,
+      });
+    });
+
+    it('startGame() with options.lifelines = ["50-50"] → 50-50 available, others unavailable', () => {
+      engine.startGame('Player', { lifelines: ['50-50'] });
+      const snapshot = engine.getSnapshot();
+      expect(snapshot.lifelines).toEqual({
+        '50-50': false,
+        'ask-audience': true,
+        'phone-friend': true,
+      });
+    });
+
+    it('startGame() with ["50-50", "ask-audience"] → those two available, phone unavailable', () => {
+      engine.startGame('Player', { lifelines: ['50-50', 'ask-audience'] });
+      const snapshot = engine.getSnapshot();
+      expect(snapshot.lifelines).toEqual({
+        '50-50': false,
+        'ask-audience': false,
+        'phone-friend': true,
+      });
+    });
+
+    it('startGame() with all three lifelines → all available (false)', () => {
+      engine.startGame('Player', { lifelines: ['50-50', 'ask-audience', 'phone-friend'] });
+      const snapshot = engine.getSnapshot();
+      expect(snapshot.lifelines).toEqual({
+        '50-50': false,
+        'ask-audience': false,
+        'phone-friend': false,
+      });
     });
   });
 
@@ -549,7 +647,7 @@ describe('GameEngine', () => {
 
   describe('useLifeline()', () => {
     beforeEach(() => {
-      engine.startGame('Player');
+      engine.startGame('Player', { lifelines: ['50-50', 'ask-audience', 'phone-friend'] });
     });
 
     it('50-50: removes 2 wrong answers, sets LIFELINE_ACTIVE', () => {
@@ -610,7 +708,7 @@ describe('GameEngine', () => {
 
   describe('resolveLifeline()', () => {
     beforeEach(() => {
-      engine.startGame('Player');
+      engine.startGame('Player', { lifelines: ['50-50', 'ask-audience', 'phone-friend'] });
     });
 
     it('back to DISPLAY_QUESTION when in LIFELINE_ACTIVE', () => {
@@ -801,7 +899,7 @@ describe('GameEngine', () => {
     });
 
     it('from LIFELINE_ACTIVE: clears session and returns to IDLE', () => {
-      resetEngine.startGame('Player');
+      resetEngine.startGame('Player', { lifelines: ['50-50', 'ask-audience', 'phone-friend'] });
       resetEngine.useLifeline('50-50');
       let snapshot = resetEngine.getSnapshot();
       expect(snapshot.state).toBe(States.LIFELINE_ACTIVE);

@@ -32,7 +32,63 @@
       <div class="panel">
         <label for="name-input">Enter your name</label>
         <input id="name-input" type="text" maxlength="20" placeholder="Player" />
-        <button id="btn-submit-name" class="btn-primary">SUBMIT</button>
+        <div style="display: flex; gap: 12px; margin-top: 12px;">
+          <button id="btn-submit-name" class="btn-primary" style="flex: 1;">SUBMIT</button>
+          <button id="btn-customize" class="btn-secondary">CUSTOMIZE</button>
+        </div>
+      </div>
+    </div>
+
+    <div id="customize-modal" class="overlay hidden">
+      <div class="modal">
+        <div class="modal-title">CUSTOMIZE GAME</div>
+        <div style="display: flex; flex-direction: column; gap: 12px;">
+          <div>
+            <label style="display: block; margin-bottom: 6px; font-family: var(--font-body); color: var(--text-secondary);">Start from question:</label>
+            <div class="custom-dropdown">
+              <button id="start-question-btn" class="dropdown-btn">Q1 - $100</button>
+              <div id="start-question-menu" class="dropdown-menu hidden">
+                <div class="dropdown-option" data-value="0">Q1 - $100</div>
+                <div class="dropdown-option" data-value="1">Q2 - $500</div>
+                <div class="dropdown-option" data-value="2">Q3 - $1,000</div>
+                <div class="dropdown-option" data-value="3">Q4 - $2,000</div>
+                <div class="dropdown-option" data-value="4">Q5 - $5,000</div>
+                <div class="dropdown-option" data-value="5">Q6 - $10,000</div>
+                <div class="dropdown-option" data-value="6">Q7 - $25,000</div>
+                <div class="dropdown-option" data-value="7">Q8 - $50,000</div>
+                <div class="dropdown-option" data-value="8">Q9 - $100,000</div>
+                <div class="dropdown-option" data-value="9">Q10 - $250,000</div>
+                <div class="dropdown-option" data-value="10">Q11 - $500,000</div>
+                <div class="dropdown-option" data-value="11">Q12 - $1M</div>
+                <div class="dropdown-option" data-value="12">Q13 - $2M</div>
+                <div class="dropdown-option" data-value="13">Q14 - $5M</div>
+                <div class="dropdown-option" data-value="14">Q15 - $10M (FINAL)</div>
+              </div>
+              <input type="hidden" id="start-question" value="0" />
+            </div>
+          </div>
+          <div>
+            <label style="display: block; margin-bottom: 6px; font-family: var(--font-body); color: var(--text-secondary);">Available lifelines:</label>
+            <div style="display: flex; flex-direction: column; gap: 6px;">
+              <label style="display: flex; align-items: center; gap: 8px; cursor: pointer; font-family: var(--font-body); color: var(--text-primary);">
+                <input type="checkbox" id="lifeline-50-50" value="50-50" />
+                50:50
+              </label>
+              <label style="display: flex; align-items: center; gap: 8px; cursor: pointer; font-family: var(--font-body); color: var(--text-primary);">
+                <input type="checkbox" id="lifeline-audience" value="ask-audience" />
+                Ask Audience
+              </label>
+              <label style="display: flex; align-items: center; gap: 8px; cursor: pointer; font-family: var(--font-body); color: var(--text-primary);">
+                <input type="checkbox" id="lifeline-phone" value="phone-friend" />
+                Phone a Friend
+              </label>
+            </div>
+          </div>
+        </div>
+        <div class="modal-buttons">
+          <button id="btn-customize-cancel" class="btn-secondary">CANCEL</button>
+          <button id="btn-customize-confirm" class="btn-primary">APPLY</button>
+        </div>
       </div>
     </div>
 
